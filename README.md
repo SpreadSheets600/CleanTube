@@ -1,99 +1,39 @@
-# Clean Tube - A Clean, Minimal YouTube Viewer
+# CleanTube
 
-**A clean, distraction-free way to view YouTube videos and playlists.**  
-Stay focused and enjoy an uninterrupted viewing experience with the simplest interface, featuring easy playlist management, renaming, and reordering.
+A distraction-light YouTube player with saved videos/playlists, per-item notes, timestamp notes, resume playback, and analytics.
 
----
+## Screenshot
 
-## 🌟 Features
+| ![Screenshot](.github/image.png) |
+|---|
+| ![Screenshot-2](.github/image-1.png) |
 
-- **Distraction-Free Design**: A minimal layout with no clutter. Just you and the content you care about.
-- **Autoplay for Playlists**: When you play a playlist, it autoplays without any interruptions.
-- **Save & Organize**: Save your favorite videos and playlists, rename them, and reorder to create your perfect collection.
-- **Custom Titles**: Assign custom titles to your saved items for better organization.
-- **Easy to Use**: Intuitive interface that keeps YouTube's core functionality without all the noise.
+## Stack
 
----
+- DaisyUI 5
+- Vanilla JS
+- Tailwind CSS
+- YouTube NoCookie
 
-## 🚀 How to Use
+## Features
 
-1. **Save a Video or Playlist**  
-   Add YouTube videos and playlists to your collection by simply entering their URLs.  
-   You can even assign custom titles for better organization!
+- Save and manage videos/playlists
+- URL parsing (watch, shorts, youtu.be, embed, playlists)
+- Per-item notes with autosave
+- Timeline notes with click-to-seek
+- Resume playback position
+- Weekly analytics
 
-2. **Play Your Videos & Playlists**  
-   Click on any saved item to play it directly in the embedded player.
+## Usage
 
-3. **Rename & Reorder**  
-   Want to change a video title or adjust the order of your collection? You can rename and reorder any item with a click!
+Open `index.html` in a browser.
 
-4. **Clear the List**  
-   Clear all saved videos or playlists in one go if you ever need to start fresh.
+## Proxy Parameters
 
----
+`proxy.html` accepts:
 
-## ✨ Key Features
-
-- **Minimalist UI**: Forget about ads, recommended videos, or comments. Focus only on the video or playlist you are watching.
-- **Autoplay**: Automatically starts the next video in a playlist without the need to click.
-- **Playlist Reordering**: You can drag and drop your saved playlists and videos to reorder them at any time.
-
----
-
-## 📸 Screenshots
-
-![image](https://github.com/user-attachments/assets/2b075705-70b5-4e78-bbfc-65199fb46587)
-_Your saved videos and playlists in one neat collection._
-
-![image](https://github.com/user-attachments/assets/5b77c656-4976-41ae-8e83-1737846c1993)
-_Rename your saved items for better organization._
-
----
-
-## 🛠️ Technologies Used
-
-- **HTML5** for markup
-- **CSS3** for styling (with a dark theme)
-- **JavaScript** for dynamic functionality
-
----
-
-## ⚡ Getting Started
-
-To get started with **Clean Tube**:
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/spreadsheets600/CleanTube.git
-   ```
-
-2. Open `index.html` in your browser.
-
-3. Enjoy a clean, distraction-free YouTube experience!
-
----
-
-## 🔗 Links
-
-- [Clean Tube](https://spreadsheets600.github.io/CleanTube/)
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Feel free to fork the project, open issues, or submit pull requests. Your feedback and improvements are highly appreciated!
-
----
-
-## 💬 Contact
-
-If you have any questions, feel free to reach out:
-
-- **Email**: sohammaity239@gmail.com
-- **GitHub**: [@SpreadSheets600](https://github.com/SpreadSheets600)
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- `?v=VIDEO_ID`
+- `?list=PLAYLIST_ID`
+- `autoplay=0|1`
+- `playsinline=0|1`
+- `start=<seconds>`
