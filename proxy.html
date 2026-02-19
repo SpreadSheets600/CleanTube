@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CleanTube Proxy</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-black">
+  <iframe id="player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen referrerpolicy="strict-origin-when-cross-origin" class="w-screen h-screen border-0"></iframe>
+  <p id="message" hidden
+    class="fixed bottom-4 left-1/2 -translate-x-1/2 alert alert-warning max-w-md text-sm shadow-lg"></p>
+
+  <script src="js/proxy.js"></script>
+</body>
+
+</html>
