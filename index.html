@@ -1,104 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>CleanTube</title>
-    <link rel="stylesheet" href="index.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="app-container">
-      <div id="top-bar">
-        <h1>CleanTube</h1>
-        <div class="top-bar-actions">
-          <button
-            id="toggle-sidebar-btn"
-            class="icon-btn"
-            title="Toggle Sidebar"
-          >
-            <i class="ri-menu-line"></i>
-          </button>
-          <button
-            id="fullscreen-btn"
-            class="icon-btn"
-            title="Toggle Fullscreen"
-          >
-            <i class="ri-fullscreen-line"></i>
-          </button>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CleanTube</title>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237c3aed'/%3E%3Cpath d='M24 18 L46 32 L24 46 Z' fill='white'/%3E%3C/svg%3E" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body class="min-h-screen bg-base-200 text-base-content">
+  <!-- Navbar -->
+  <div class="navbar bg-base-100 shadow-md px-4 lg:px-6 sticky top-0 z-30">
+    <div class="flex-1 gap-3">
+      <div class="flex items-center gap-2">
+        <div class="bg-purple-600 text-white rounded-lg p-1.5">
+          <i class="ph-bold ph-play text-lg"></i>
         </div>
-      </div>
-
-      <div id="sidebar">
-        <div class="sidebar-section">
-          <div class="list-header">
-            <h3>YouTube URL</h3>
-          </div>
-          <div class="input-group">
-            <input type="text" id="url-input" placeholder="Enter YouTube URL" />
-            <button id="load-btn">Load</button>
-          </div>
-        </div>
-
-        <div class="list-section">
-          <div class="list-header">
-            <h3>Playlists</h3>
-            <div class="action-buttons">
-              <button
-                id="add-playlist-btn"
-                class="action-btn"
-                title="Add Playlist"
-              >
-                <i class="ri-add-line"></i>
-              </button>
-              <button
-                id="clear-playlists-btn"
-                class="action-btn"
-                title="Clear Playlists"
-              >
-                <i class="ri-delete-bin-line"></i>
-              </button>
-            </div>
-          </div>
-          <div class="item-list">
-            <ul id="playlist-list"></ul>
-          </div>
-        </div>
-
-        <div class="list-section">
-          <div class="list-header">
-            <h3>Saved Videos</h3>
-            <div class="action-buttons">
-              <button id="add-video-btn" class="action-btn" title="Add Videos">
-                <i class="ri-add-line"></i>
-              </button>
-
-              <button
-                id="clear-videos-btn"
-                class="action-btn"
-                title="Clear Videos"
-              >
-                <i class="ri-delete-bin-line"></i>
-              </button>
-            </div>
-          </div>
-          <div class="item-list">
-            <ul id="saved-videos"></ul>
-          </div>
-        </div>
-      </div>
-
-      <div id="main-content">
-        <div id="video-container">
-          <iframe id="video-player" src="" allowfullscreen></iframe>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight">CleanTube</h1>
         </div>
       </div>
     </div>
+    <div class="flex-none gap-1.5">
+      <button id="toggle-sidebar-btn" class="btn btn-sm btn-ghost btn-square tooltip tooltip-bottom"
+        data-tip="Toggle Sidebar" aria-label="Toggle sidebar">
+        <i class="ph ph-sidebar text-2xl"></i>
+      </button>
+      <a href="analytics.html" class="btn btn-sm btn-ghost gap-1">
+        <i class="ph ph-chart-bar text-2xl"></i>
+      </a>
+      <button id="fullscreen-btn" class="btn btn-sm btn-ghost btn-square tooltip tooltip-bottom" data-tip="Fullscreen"
+        title="Toggle Fullscreen">
+        <i class="ph ph-arrows-out text-2xl"></i>
+      </button>
+    </div>
+  </div>
 
-    <div id="notification-container"></div>
+  <!-- Main Content -->
+  <main class="p-3 lg:p-5">
+    <div id="app-layout" class="w-full grid gap-4 xl:grid-cols-[340px_1fr] min-h-[calc(100vh-110px)]">
 
-    <script src="index.js"></script>
-  </body>
+      <!-- Sidebar -->
+      <aside id="sidebar-panel" class="flex flex-col gap-3 min-h-0">
+
+        <!-- URL Input Card -->
+        <div class="card bg-base-100 shadow-sm">
+          <div class="card-body p-4 gap-3">
+            <div class="flex items-center gap-2 text-sm font-semibold">
+              <i class="ph ph-link text-purple-400"></i>
+              Load Video or Playlist
+            </div>
+            <div class="join w-full">
+              <input id="url-input" type="url" placeholder="Paste YouTube URL or ID…" autocomplete="off"
+                class="input input-bordered input-sm join-item w-full" />
+              <button id="load-btn"
+                class="btn btn-sm join-item bg-purple-600 border-purple-600 text-white hover:bg-purple-700">
+                <i class="ph-bold ph-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saved Videos Card -->
+        <div class="card bg-base-100 shadow-sm flex-1 min-h-0">
+          <div class="card-body p-4 gap-2 min-h-0">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2 text-sm font-semibold">
+                <i class="ph ph-video-camera text-info"></i>
+                Videos
+              </div>
+              <div class="flex gap-0.5">
+                <button id="add-video-btn" class="btn btn-xs btn-ghost btn-square tooltip tooltip-bottom"
+                  data-tip="Add Video" title="Add Video">
+                  <i class="ph ph-plus"></i>
+                </button>
+                <button id="clear-videos-btn" class="btn btn-xs btn-ghost btn-square tooltip tooltip-bottom"
+                  data-tip="Clear All" title="Clear Videos">
+                  <i class="ph ph-trash"></i>
+                </button>
+              </div>
+            </div>
+            <ul id="saved-videos" class="space-y-1.5 overflow-y-auto pr-1 flex-1 min-h-0"></ul>
+          </div>
+        </div>
+
+        <!-- Saved Playlists Card -->
+        <div class="card bg-base-100 shadow-sm flex-1 min-h-0">
+          <div class="card-body p-4 gap-2 min-h-0">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2 text-sm font-semibold">
+                <i class="ph ph-playlist text-accent"></i>
+                Playlists
+              </div>
+              <div class="flex gap-0.5">
+                <button id="add-playlist-btn" class="btn btn-xs btn-ghost btn-square tooltip tooltip-bottom"
+                  data-tip="Add Playlist" title="Add Playlist">
+                  <i class="ph ph-plus"></i>
+                </button>
+                <button id="clear-playlists-btn" class="btn btn-xs btn-ghost btn-square tooltip tooltip-bottom"
+                  data-tip="Clear All" title="Clear Playlists">
+                  <i class="ph ph-trash"></i>
+                </button>
+              </div>
+            </div>
+            <ul id="playlist-list" class="space-y-1.5 overflow-y-auto pr-1 flex-1 min-h-0"></ul>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Panel -->
+      <section class="grid gap-4 grid-rows-[minmax(300px,1fr)_minmax(200px,280px)] min-h-0">
+
+        <!-- Video Player Card -->
+        <section id="video-shell" class="card bg-base-100 shadow-sm overflow-hidden min-h-0">
+          <div class="card-body p-0 min-h-0">
+            <div class="relative w-full h-full min-h-[300px] bg-black overflow-hidden">
+              <iframe id="video-player" title="CleanTube player" referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen class="w-full h-full border-0"></iframe>
+              <div id="player-empty-state" class="absolute inset-0 grid place-items-center bg-base-300/40">
+                <div class="text-center space-y-2">
+                  <i class="ph ph-play-circle text-5xl opacity-30"></i>
+                  <p class="text-sm opacity-50">Paste a URL to start watching</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Notes Card (simple textarea) -->
+        <section class="card bg-base-100 shadow-sm min-h-0">
+          <div class="card-body p-4 gap-3 h-full">
+            <div class="flex items-center gap-2 text-sm font-semibold">
+              <i class="ph ph-note-pencil text-warning"></i>
+              Notes
+            </div>
+            <textarea id="notes-textarea"
+              class="textarea textarea-bordered w-full flex-1 resize-none text-sm leading-relaxed"
+              placeholder="Write your notes here…"></textarea>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <div id="notification-container" class="toast toast-end z-50"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+
 </html>
