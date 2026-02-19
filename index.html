@@ -29,7 +29,7 @@
     <div class="flex-none gap-1.5">
       <button id="toggle-sidebar-btn" class="btn btn-sm btn-ghost btn-square tooltip tooltip-bottom"
         data-tip="Toggle Sidebar" aria-label="Toggle sidebar">
-        <i class="ph ph-sidebar text-2xl"></i>
+        <i class="ph-bold ph-sidebar-simple text-xl"></i>
       </button>
       <a href="analytics.html" class="btn btn-sm btn-ghost gap-1">
         <i class="ph ph-chart-bar text-2xl"></i>
@@ -114,7 +114,7 @@
       </aside>
 
       <!-- Main Panel -->
-      <section class="grid gap-4 grid-rows-[minmax(300px,1fr)_minmax(200px,280px)] min-h-0">
+      <section id="main-panel" class="grid gap-4 grid-rows-[minmax(300px,1fr)_minmax(200px,280px)] min-h-0">
 
         <!-- Video Player Card -->
         <section id="video-shell" class="card bg-base-100 shadow-sm overflow-hidden min-h-0">
@@ -133,16 +133,26 @@
           </div>
         </section>
 
-        <!-- Notes Card (simple textarea) -->
-        <section class="card bg-base-100 shadow-sm min-h-0">
+        <!-- Notes Card (collapsible) -->
+        <section id="notes-card" class="card bg-base-100 shadow-sm min-h-0">
           <div class="card-body p-4 gap-3 h-full">
-            <div class="flex items-center gap-2 text-sm font-semibold">
-              <i class="ph ph-note-pencil text-warning"></i>
-              Notes
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2 text-sm font-semibold">
+                <i class="ph ph-note-pencil text-warning"></i>
+                Notes
+              </div>
+              <div class="flex gap-0.5">
+                <button id="toggle-notes-btn" class="btn btn-xs btn-ghost btn-square tooltip tooltip-bottom"
+                  data-tip="Toggle Notes" title="Toggle Notes">
+                  <i class="ph ph-caret-up"></i>
+                </button>
+              </div>
             </div>
-            <textarea id="notes-textarea"
-              class="textarea textarea-bordered w-full flex-1 resize-none text-sm leading-relaxed"
-              placeholder="Write your notes here…"></textarea>
+            <div id="notes-content">
+              <textarea id="notes-textarea"
+                class="textarea textarea-bordered w-full h-full min-h-[120px] resize-none text-sm leading-relaxed"
+                placeholder="Write your notes here…"></textarea>
+            </div>
           </div>
         </section>
       </section>

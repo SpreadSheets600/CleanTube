@@ -3,6 +3,7 @@ import { parseYouTubeInput, noteKeyFor, makeProxySrc, thumbnailFor, toFiniteNumb
 const PLAYER_POLL_MS = 1000;
 const PROGRESS_SAVE_MS = 5000;
 const SIDEBAR_PREF_KEY = "cleantube.sidebar.hidden";
+const NOTES_PREF_KEY = "cleantube.notes.hidden";
 
 const dom = {
 	urlInput: document.getElementById("url-input"),
@@ -20,6 +21,10 @@ const dom = {
 	videoPlayer: document.getElementById("video-player"),
 	playerEmptyState: document.getElementById("player-empty-state"),
 	notesTextarea: document.getElementById("notes-textarea"),
+	notesContent: document.getElementById("notes-content"),
+	notesCard: document.getElementById("notes-card"),
+	toggleNotesBtn: document.getElementById("toggle-notes-btn"),
+	mainPanel: document.getElementById("main-panel"),
 	notifications: document.getElementById("notification-container"),
 };
 
@@ -54,6 +59,7 @@ class CleanTubeApp {
 		this.bindEvents();
 		this.bindProxyBridge();
 		this.restoreSidebarPreference();
+		this.restoreNotesPreference();
 		this.renderAll();
 
 		if (this.state.current) {
@@ -93,6 +99,7 @@ class CleanTubeApp {
 		dom.clearPlaylistsBtn.addEventListener("click", () => this.clearItems("playlist"));
 
 		dom.toggleSidebarBtn?.addEventListener("click", () => this.toggleSidebar());
+		dom.toggleNotesBtn?.addEventListener("click", () => this.toggleNotes());
 		dom.fullscreenBtn.addEventListener("click", () => this.toggleFullscreen());
 
 		dom.savedVideos.addEventListener("click", (event) => this.handleItemAction(event, "video"));
@@ -489,9 +496,6 @@ class CleanTubeApp {
 		dom.toggleSidebarBtn.title = hidden ? "Show Sidebar" : "Hide Sidebar";
 		dom.toggleSidebarBtn.setAttribute("aria-label", dom.toggleSidebarBtn.title);
 
-		const icon = dom.toggleSidebarBtn.querySelector("i");
-		if (icon) icon.className = hidden ? "ph ph-sidebar" : "ph ph-sidebar";
-
 		try {
 			localStorage.setItem(SIDEBAR_PREF_KEY, hidden ? "1" : "0");
 		} catch {}
@@ -510,8 +514,49 @@ class CleanTubeApp {
 		dom.appLayout.style.gridTemplateColumns = "1fr";
 		dom.toggleSidebarBtn.title = "Show Sidebar";
 		dom.toggleSidebarBtn.setAttribute("aria-label", "Show Sidebar");
-		const icon = dom.toggleSidebarBtn.querySelector("i");
-		if (icon) icon.className = "ph ph-sidebar";
+	}
+
+	toggleNotes() {
+		if (!dom.notesContent || !dom.toggleNotesBtn) return;
+
+		const hidden = dom.notesContent.classList.toggle("hidden");
+		const icon = dom.toggleNotesBtn.querySelector("i");
+		if (icon) icon.className = hidden ? "ph ph-caret-down" : "ph ph-caret-up";
+		dom.toggleNotesBtn.title = hidden ? "Show Notes" : "Hide Notes";
+		dom.toggleNotesBtn.dataset.tip = dom.toggleNotesBtn.title;
+
+		if (hidden) {
+			dom.notesCard.classList.remove("min-h-0");
+			dom.notesCard.classList.add("h-fit");
+			dom.mainPanel.style.gridTemplateRows = "1fr auto";
+		} else {
+			dom.notesCard.classList.add("min-h-0");
+			dom.notesCard.classList.remove("h-fit");
+			dom.mainPanel.style.gridTemplateRows = "";
+		}
+
+		try {
+			localStorage.setItem(NOTES_PREF_KEY, hidden ? "1" : "0");
+		} catch {}
+	}
+
+	restoreNotesPreference() {
+		if (!dom.notesContent || !dom.toggleNotesBtn) return;
+
+		let hidden = false;
+		try {
+			hidden = localStorage.getItem(NOTES_PREF_KEY) === "1";
+		} catch {}
+		if (!hidden) return;
+
+		dom.notesContent.classList.add("hidden");
+		const icon = dom.toggleNotesBtn.querySelector("i");
+		if (icon) icon.className = "ph ph-caret-down";
+		dom.toggleNotesBtn.title = "Show Notes";
+		dom.toggleNotesBtn.dataset.tip = "Show Notes";
+		dom.notesCard.classList.remove("min-h-0");
+		dom.notesCard.classList.add("h-fit");
+		dom.mainPanel.style.gridTemplateRows = "1fr auto";
 	}
 }
 
